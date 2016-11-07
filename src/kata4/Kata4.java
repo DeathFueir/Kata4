@@ -6,7 +6,9 @@
 package kata4;
 
 import java.io.File;
-import java.nio.file.Files;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
@@ -14,24 +16,14 @@ import java.nio.file.Files;
  */
  public class Kata4 {
   
-      public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException, IOException {
          
-         File file = new File("C:\\Users\\death\\Desktop");
-         print(file.listFiles(), "");
-     }
-     
-     public static void print(File[] files, String indent){
-         if(files == null){
-             return;
-         }
-         for (File file : files) {
-             System.out.println(indent + (file.isDirectory() ? "+" : "-") 
-                     + file.getName());
-             if(!file.isDirectory() || file.isHidden()){
-                 continue;
-             }
-             print(file.listFiles(), "   ");
-          }
-      }
+        String path = "‪C:\\Users\\death\\Desktop\\emailsfilev1.txt";
+        
+        ArrayList<String> mailList = MailListReader.read(path);
+        Histogram<String> histogram = MailHistogramBuilder.build(mailList);
+        HistogramDisplay histoDisplay = new HistogramDisplay(histogram);
+        histoDisplay.execute();        
+    }        
   }
 
